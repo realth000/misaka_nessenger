@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "kzs.th000" "\0"
-            VALUE "FileDescription", "misaka_nessenger" "\0"
+            VALUE "FileDescription", "MisakaNessenger" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "misaka_nessenger" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 kzs.th000. All rights reserved." "\0"
-            VALUE "OriginalFilename", "misaka_nessenger.exe" "\0"
-            VALUE "ProductName", "misaka_nessenger" "\0"
+            VALUE "InternalName", "MisakaNessenger" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 github@realth000 All rights reserved." "\0"
+            VALUE "OriginalFilename", "MisakaNessenger.exe" "\0"
+            VALUE "ProductName", "MisakaNessenger" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -43,6 +43,7 @@ dependencies:
   shared_preferences: ^2.0.15
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.10.0
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
@@ -52,6 +53,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   lint: ^1.10.0
+
+flutter_icons:
+  image: assets/images/misaka_nessenger_192.png
+  windows:
+    generate: true
+    image_path: "assets/images/misaka_nessenger_192.png"
+    icon_size: 96 # min:48, max:256, default: 48
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
