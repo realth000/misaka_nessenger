@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'components/scaffold/services/scaffold_services.dart';
 import 'routes/misaka_pages.dart';
 import 'routes/misaka_routes.dart';
+import 'themes/app_themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,5 +27,7 @@ class MisakaApp extends StatelessWidget {
         title: 'MisakaNessenger',
         getPages: MisakaPages.pages,
         initialRoute: MisakaRoutes.scaffoldPage,
+        theme: flexLight,
+        darkTheme: flexDark,
       );
 }
