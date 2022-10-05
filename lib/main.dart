@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initServices();
   runApp(const MisakaApp());
+  doWhenWindowReady(() {
+    appWindow.show();
+  });
 }
 
 /// Init Getx services, should run before app start.
@@ -24,6 +28,7 @@ class MisakaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'MisakaNessenger',
         getPages: MisakaPages.pages,
         initialRoute: MisakaRoutes.scaffoldPage,
