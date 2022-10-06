@@ -11,7 +11,7 @@ class ScaffoldPagesList {
 
   /// Scaffold body pages.
   static final pages = <Widget>[
-    const TransportPage(),
+    TransportPage(),
     const SettingsPage(),
   ];
 }

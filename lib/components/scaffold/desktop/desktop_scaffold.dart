@@ -1,5 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../navigation_bar/navigation_bar_view.dart';
 import '../pages/scaffold_pages_list.dart';
@@ -31,7 +32,10 @@ class DesktopScaffold extends StatelessWidget {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  DesktopWindowButtons(),
+                  ColoredBox(
+                    color: Get.theme.colorScheme.surface.withOpacity(0.8),
+                    child: DesktopWindowButtons(),
+                  ),
                   ScaffoldPagesList.pages[index],
                 ],
               ),
