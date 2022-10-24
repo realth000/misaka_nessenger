@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'desktop/desktop_scaffold.dart';
-import 'mobile/mobile_scaffold.dart';
-import 'services/scaffold_services.dart';
+import '../../desktop/scaffold/desktop_scaffold.dart';
+import '../../mobile/scaffold/mobile_scaffold.dart';
+import '../../services/scaffold_services.dart';
 
 /// Build app scaffold.
 ///

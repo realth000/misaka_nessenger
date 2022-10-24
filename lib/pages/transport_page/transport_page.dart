@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../components/scaffold/scaffold.dart';
-import 'desktop/desktop_transport_page.dart';
-import 'transport_item_list/transport_item_list_controller.dart';
-import 'transport_item_list/transport_item_list_view.dart';
-import 'transport_page_controller.dart';
+import '../../components/transport_page/transport_item_list/transport_item_list_controller.dart';
+import '../../components/transport_page/transport_item_list/transport_item_list_view.dart';
+import '../../components/transport_page/transport_page_controller.dart';
+import '../../desktop/transport_page/desktop_transport_page.dart';
+import '../scaffold/scaffold.dart';
 
 /// Transport page.
 ///

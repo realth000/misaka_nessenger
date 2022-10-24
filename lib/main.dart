@@ -2,9 +2,9 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'components/scaffold/services/scaffold_services.dart';
 import 'routes/misaka_pages.dart';
 import 'routes/misaka_routes.dart';
+import 'services/scaffold_services.dart';
 import 'themes/app_themes.dart';
 
 void main() async {
@@ -14,13 +14,14 @@ void main() async {
   doWhenWindowReady(() {
     appWindow.size = const Size(1024, 768);
     appWindow.minSize = const Size(1024, 768);
+    appWindow.alignment = Alignment.center;
     appWindow.show();
   });
 }
 
 /// Init Getx services, should run before app start.
 Future<void> initServices() async {
-  await Get.putAsync(() async => await ScaffoldService().init());
+  await Get.putAsync(() async => ScaffoldService().init());
 }
 
 /// Application class.

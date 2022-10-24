@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../navigation_bar/navigation_bar_view.dart';
-import '../pages/scaffold_pages_list.dart';
+import '../../components/navigation_bar/navigation_bar_view.dart';
+import '../../pages/scaffold/scaffold_pages_list.dart';
 
 /// App scaffold used in mobile platforms.
 ///

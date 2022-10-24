@@ -2,9 +2,9 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../navigation_bar/navigation_bar_view.dart';
-import '../pages/scaffold_pages_list.dart';
-import 'window_bar_buttons.dart';
+import '../../components/navigation_bar/navigation_bar_view.dart';
+import '../../pages/scaffold/scaffold_pages_list.dart';
+import '../window_bar_buttons.dart';
 
 /// Scaffold uses in desktop platforms.
 ///
