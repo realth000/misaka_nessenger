@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../components/transport_page/transport_item_list/transport_item_list_controller.dart';
 import '../../components/transport_page/transport_item_list/transport_item_list_view.dart';
 import '../../components/transport_page/transport_page_controller.dart';
+import '../../desktop/send_page/desktop_send_page.dart';
 import '../../desktop/transport_page/desktop_transport_page.dart';
 import '../scaffold/scaffold.dart';
 
@@ -21,6 +22,11 @@ class TransportPage extends StatelessWidget {
   Widget _buildBodyPage() {
     switch (controller.currentIndex.value) {
       case 0:
+        if (GetPlatform.isDesktop) {
+          return DesktopSendPage();
+        }
+        return Text('send page need implement');
+        break;
       case 1:
         return TransportItemList(
           filter: TransportItemFilter.all,
