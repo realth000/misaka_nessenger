@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../transport_page_controller.dart';
+import '../../components/transport_page/transport_page_controller.dart';
 
 /// Navigation bar in transport page.
 class TransportNavigationBar extends StatelessWidget {

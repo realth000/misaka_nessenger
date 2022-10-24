@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../components/scaffold/scaffold.dart';
+import '../scaffold/scaffold.dart';
 
 class RootPage extends StatelessWidget {
   RootPage({required this.tabIndex});

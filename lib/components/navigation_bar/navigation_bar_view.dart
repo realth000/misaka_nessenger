@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../scaffold/services/scaffold_services.dart';
+import '../../services/scaffold_services.dart';
 import 'navigation_bar_controller.dart';
 
 /// Navigation bar.

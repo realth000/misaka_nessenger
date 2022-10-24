@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../components/scaffold/scaffold.dart';
+import '../pages/scaffold/scaffold.dart';
 import 'misaka_routes.dart';
 
 /// Route settings, bind routes together with view classes.
