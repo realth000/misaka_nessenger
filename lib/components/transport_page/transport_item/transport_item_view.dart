@@ -13,7 +13,6 @@ class TransportItemWidget extends StatelessWidget {
   /// Controller of current item.
   final controller = Get.put(TransportItemController());
 
-  /// Model to display in item.
   final TransportItemModel model;
 
   @override
