@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../services/payload_service.dart';
+import '../../services/payload_service/payload_service.dart';
 
 /// Widget to show and set send task payload: file or directory.
 ///
