@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../models/transport_item_model/transport_item_model.dart';
-import '../../../services/payload_service.dart';
+import '../../../services/payload_service/payload_service.dart';
 import '../transport_item/transport_item_view.dart';
 
 /// Item list to show in transport page.

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "kzs.th000.misaka_nessenger.messenger";
+option java_outer_classname = "MisakaMessenger";
+option objc_class_prefix = "HLW";
+
+package messenger;
+
+service Messenger {
+  rpc SendFile(stream SendFileRequest) returns (SendFileReply) {}
+}
+
+message SendFileRequest {
+  string fileName = 1;
+  string fileSource = 2;
+  bytes fileContent = 3;
+}
+
+message SendFileReply {
+  uint32 finishedFileSize = 1;
+}

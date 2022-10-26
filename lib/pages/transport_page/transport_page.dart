@@ -5,7 +5,7 @@ import '../../components/transport_page/transport_item_list/transport_item_list_
 import '../../components/transport_page/transport_page_controller.dart';
 import '../../desktop/send_page/desktop_send_page.dart';
 import '../../desktop/transport_page/desktop_transport_page.dart';
-import '../../services/payload_service.dart';
+import '../../services/payload_service/payload_service.dart';
 import '../scaffold/scaffold.dart';
 
 /// Transport page.

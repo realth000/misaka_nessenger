@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
-import '../models/transport_item_model/transport_item_model.dart';
+import '../../models/transport_item_model/transport_item_model.dart';
+import 'payload_worker.dart';
 
 /// Filter when showing transport items (tasks) in item list.
 ///
@@ -25,6 +26,9 @@ class PayloadService extends GetxService {
   /// List contains all items (tasks).
   final itemList = <TransportItemModel>[].obs;
 
+  /// Worker of all tasks,
+  final _workerPool = <PayloadWorker>[];
+
   /// Model to display in item.
   /// Clear all stated payload.
   ///
@@ -32,6 +36,16 @@ class PayloadService extends GetxService {
   /// or all payload in that page is pushed into send task queue.
   void clearStagedPayload() {
     stagedPayloadPathList.clear();
+  }
+
+  /// Add a send task, send text or file to other machines.
+  Future<void> addSendTask(List<String> taskSourcePathList) async {
+    // TODO: Multiple tasks.
+    for (final task in taskSourcePathList) {
+      final worker =
+          PayloadWorker.fromSource(source: task, type: PayloadType.send);
+      _workerPool.add(worker);
+    }
   }
 
   /// Init service when startup.
