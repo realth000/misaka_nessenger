@@ -27,7 +27,7 @@ class PayloadService extends GetxService {
   final itemList = <TransportItemModel>[].obs;
 
   /// Worker of all tasks,
-  final _workerPool = <PayloadWorker>[];
+  final workerPool = <PayloadWorker>[];
 
   /// Model to display in item.
   /// Clear all stated payload.
@@ -42,9 +42,12 @@ class PayloadService extends GetxService {
   Future<void> addSendTask(List<String> taskSourcePathList) async {
     // TODO: Multiple tasks.
     for (final task in taskSourcePathList) {
-      final worker =
-          PayloadWorker.fromSource(source: task, type: PayloadType.send);
-      _workerPool.add(worker);
+      final worker = PayloadWorker.fromSource(
+        source: task,
+        type: PayloadType.send,
+        id: workerPool.length,
+      );
+      workerPool.add(worker);
     }
   }
 
