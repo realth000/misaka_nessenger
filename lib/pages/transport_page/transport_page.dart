@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../components/transport_page/transport_item_list/transport_item_list_view.dart';
-import '../../components/transport_page/transport_page_controller.dart';
-import '../../desktop/send_page/desktop_send_page.dart';
-import '../../desktop/transport_page/desktop_transport_page.dart';
-import '../../services/payload_service/payload_service.dart';
 import '../scaffold/scaffold.dart';
 
 /// Transport page.
@@ -15,49 +9,6 @@ class TransportPage extends StatelessWidget {
   /// Constructor.
   TransportPage({super.key});
 
-  /// Controller, maintains different body widgets by
-  /// [TransportPageController.currentIndex].
-  final controller = Get.put(TransportPageController());
-
-  Widget _buildBodyPage() {
-    switch (controller.currentIndex.value) {
-      case 0:
-        if (GetPlatform.isDesktop) {
-          return DesktopSendPage();
-        }
-        return Text('send page need implement');
-        break;
-      case 1:
-        return TransportItemList(
-          filter: TransportItemFilter.all,
-        );
-      case 2:
-        return TransportItemList(
-          filter: TransportItemFilter.onlyUpload,
-        );
-      case 3:
-      default:
-        return TransportItemList(
-          filter: TransportItemFilter.onlyDownload,
-        );
-    }
-  }
-
   @override
-  Widget build(BuildContext context) {
-    if (GetPlatform.isMobile) {
-      return Row();
-    } else {
-      return Expanded(
-        child: Row(
-          children: <Widget>[
-            TransportNavigationBar(),
-            Expanded(
-              child: Obx(_buildBodyPage),
-            ),
-          ],
-        ),
-      );
-    }
-  }
+  Widget build(BuildContext context) => Text('Transport Page');
 }
