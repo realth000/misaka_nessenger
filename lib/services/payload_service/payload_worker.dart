@@ -47,7 +47,11 @@ class PayloadWorker {
   /// Build from source info.
   ///
   /// With source (file path or text) and task type.
-  PayloadWorker.fromSource({required this.source, required this.type});
+  PayloadWorker.fromSource(
+      {required this.source, required this.type, required this.id});
+
+  /// ID of worker.
+  final int id;
 
   /// Source file path or messages.
   ///
