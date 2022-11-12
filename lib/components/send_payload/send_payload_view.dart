@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../services/payload_service/payload_service.dart';
+import '../../services/payload_service.dart';
 
 /// Widget to show and set send task payload: file or directory.
 ///
@@ -11,7 +11,7 @@ import '../../services/payload_service/payload_service.dart';
 /// On mobile, use in the second tab of send page, looks like "the second step".
 class SendPayloadWidget extends GetView<PayloadService> {
   /// Constructor.
-  SendPayloadWidget({super.key});
+  const SendPayloadWidget({super.key});
 
   /// Add payload: pick files from local machine.
   Future<void> _addPayload() async {
