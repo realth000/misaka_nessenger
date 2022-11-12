@@ -36,7 +36,7 @@ class DesktopScaffold extends StatelessWidget {
                     color: Get.theme.colorScheme.surface.withOpacity(0.8),
                     child: DesktopWindowButtons(),
                   ),
-                  ScaffoldPagesList.pages[index],
+                  Expanded(child: ScaffoldPagesList.pages[index]),
                 ],
               ),
             ),

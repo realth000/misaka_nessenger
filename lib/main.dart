@@ -13,8 +13,8 @@ void main() async {
   await initServices();
   runApp(const MisakaApp());
   doWhenWindowReady(() {
-    appWindow.size = const Size(1024, 768);
-    appWindow.minSize = const Size(1024, 768);
+    appWindow.size = const Size(800, 600);
+    appWindow.minSize = const Size(800, 600);
     appWindow.alignment = Alignment.center;
     appWindow.show();
   });

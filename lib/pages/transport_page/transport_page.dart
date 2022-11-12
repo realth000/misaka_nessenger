@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../components/send_payload/send_payload_view.dart';
+import '../../components/send_target/send_target_view.dart';
 import '../scaffold/scaffold.dart';
 
 /// Transport page.
@@ -10,5 +12,20 @@ class TransportPage extends StatelessWidget {
   TransportPage({super.key});
 
   @override
-  Widget build(BuildContext context) => Text('Transport Page');
+  Widget build(BuildContext context) => Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: SendPayloadWidget(),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: SendTargetWidget(),
+            ),
+          ),
+        ],
+      );
 }

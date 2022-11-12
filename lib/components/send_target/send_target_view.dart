@@ -16,54 +16,50 @@ class SendTargetWidget extends StatelessWidget {
   final _remotePortController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                autofocus: false,
-                controller: _remoteIPController,
-                decoration: InputDecoration(
-                  labelText: 'Remote IP'.tr,
-                  hintText: 'xxx.xxx.xxx.xxx'.tr,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-                height: 10,
-              ),
-              TextFormField(
-                autofocus: false,
-                controller: _remotePortController,
-                decoration: InputDecoration(
-                  labelText: 'Remote Port'.tr,
-                  hintText: '0~65535'.tr,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: 50),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Send'.tr),
+  Widget build(BuildContext context) => Column(
+        children: <Widget>[
+          Form(
+            key: _formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  controller: _remoteIPController,
+                  decoration: InputDecoration(
+                    labelText: 'Remote IP'.tr,
+                    hintText: 'xxx.xxx.xxx.xxx'.tr,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 10,
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: _remotePortController,
+                  decoration: InputDecoration(
+                    labelText: 'Remote Port'.tr,
+                    hintText: '0~65535'.tr,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    );
-  }
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 50),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Send'.tr),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
 }

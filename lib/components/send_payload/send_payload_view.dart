@@ -42,7 +42,7 @@ class SendPayloadWidget extends GetView<PayloadService> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
             height: 10,
           ),
