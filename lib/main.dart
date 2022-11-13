@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 import 'routes/misaka_pages.dart';
 import 'routes/misaka_routes.dart';
 import 'services/config_service.dart';
+import 'services/locale_service.dart';
 import 'services/payload_service.dart';
 import 'services/scaffold_services.dart';
 import 'themes/app_themes.dart';
+import 'translations/translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +26,7 @@ void main() async {
 /// Init Getx services, should run before app start.
 Future<void> initServices() async {
   await Get.putAsync(() async => ConfigService().init());
+  await Get.putAsync(() async => LocaleService().init());
   await Get.putAsync(() async => ScaffoldService().init());
   await Get.putAsync(() async => PayloadService().init());
 }
@@ -35,11 +38,13 @@ class MisakaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GetMaterialApp(
-        debugShowCheckedModeBanner: false,
         title: 'MisakaNessenger',
         getPages: MisakaPages.pages,
         initialRoute: MisakaRoutes.scaffoldPage,
         theme: flexLight,
         darkTheme: flexDark,
+        translations: MisakaTranslations(),
+        locale: Get.find<LocaleService>().getLocale(),
+        fallbackLocale: LocaleService.fallbackLocale,
       );
 }

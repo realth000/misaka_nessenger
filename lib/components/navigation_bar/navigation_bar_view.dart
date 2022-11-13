@@ -50,6 +50,7 @@ class NavigationBarComponent extends StatelessWidget {
               )
               .toList(),
           selectedIndex: controller.currentIndex.value,
+          labelType: NavigationRailLabelType.selected,
           onDestinationSelected: (index) async {
             controller.currentIndex.value = index;
             Get.find<ScaffoldService>().currentIndex.value = index;

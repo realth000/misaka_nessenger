@@ -33,8 +33,6 @@ class PayloadServer extends MessengerServiceBase {
     var fileName = '';
     var checkExist = false;
     final peer = call.clientMetadata!['ClientID'] ?? 'UNKNOWN';
-    print(
-        'AAAA PayloadServer receive from peer $peer, request: ${request.toString()}');
     final downloadDir = await path_provider.getDownloadsDirectory();
     if (downloadDir == null) {
       print('AAAA FAILED TO GET DOWNLOAD PATH');

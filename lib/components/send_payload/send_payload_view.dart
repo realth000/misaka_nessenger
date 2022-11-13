@@ -38,7 +38,7 @@ class SendPayloadWidget extends GetView<PayloadService> {
             child: ElevatedButton(
               onPressed: () async => _addPayload(),
               child: Text(
-                'Add file (folder)'.tr,
+                'Add files'.tr,
               ),
             ),
           ),

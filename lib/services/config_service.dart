@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// All config name and types map.
 const Map<String, Type> configMap = <String, Type>{
+  'Locale': String,
+  'FollowSystemLocale': bool,
   'LastUsedRemoteHost': String,
   'LastUsedRemotePort': int,
   'LocalServerPort': int,

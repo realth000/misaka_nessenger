@@ -1,5 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 final ListTileThemeData _listTileTheme = ListTileThemeData(
   shape: RoundedRectangleBorder(
@@ -13,6 +14,7 @@ const InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
 );
 
 final ThemeData _flexLightBase = FlexThemeData.light(
+  fontFamily: GetPlatform.isWindows ? 'Microsoft YaHei' : null,
   colors: const FlexSchemeColor(
     primary: Color(0xff375778),
     primaryContainer: Color(0xffa4c4ed),
@@ -54,6 +56,7 @@ final ThemeData _flexLightBase = FlexThemeData.light(
 );
 
 final ThemeData _flexDarkBase = FlexThemeData.dark(
+  fontFamily: GetPlatform.isWindows ? 'Microsoft YaHei' : null,
   colors: const FlexSchemeColor(
     primary: Color(0xffacc9ee),
     // primaryContainer: Color(0xffa4c4ed),

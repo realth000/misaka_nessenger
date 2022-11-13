@@ -47,16 +47,13 @@ class SendTargetWidget extends StatelessWidget {
 
     final payloadService = Get.find<PayloadService>();
     if (payloadService.stagedPayloadPathList.isEmpty) {
-      print('AAAA send button empty!');
+      Get.snackbar('Can not send file'.tr, 'No file selected'.tr);
       return;
     }
     if (!await payloadService.startSendFile(
       remoteHost: _remoteIPController.text,
       remotePort: int.parse(_remotePortController.text),
-    )) {
-      print('AAAA send button failed!');
-    }
-    print('AAAA send button finished!');
+    )) {}
   }
 
   @override
@@ -75,7 +72,7 @@ class SendTargetWidget extends StatelessWidget {
                   ),
                   validator: (v) {
                     if (v!.trim().isEmpty) {
-                      return 'Remote IP Can not be empty'.tr;
+                      return 'Remote IP can not be empty'.tr;
                     }
                     if (!v.isIPv4 && v != 'localhost') {
                       return 'Invalid IP'.tr;
