@@ -3,6 +3,7 @@ import 'package:grpc/grpc.dart' as grpc;
 
 import '../components/payload_server/payload_server.dart';
 import '../components/payload_worker/payload_worker.dart';
+import 'config_service.dart';
 
 /// Service that controls and handles transport tasks.
 ///
@@ -22,9 +23,15 @@ class PayloadService extends GetxService {
 
   /// Init before app start.
   Future<PayloadService> init() async {
+    var serverPort = Get.find<ConfigService>().getInt('LocalServerPort');
+    if (serverPort == null) {
+      // Default port: 10032.
+      serverPort = 10032;
+      await Get.find<ConfigService>().saveInt('LocalServerPort', 10032);
+    }
     _server = grpc.Server([PayloadServer()]);
-    await _server.serve(port: 10032);
-    print('AAAA PayloadService: start listening at port 10032');
+    await _server.serve(port: serverPort);
+    print('AAAA PayloadService: start listening at port $serverPort');
     return this;
   }
 
@@ -40,7 +47,7 @@ class PayloadService extends GetxService {
         remotePort: remotePort,
       );
       if (!await worker.sendFile()) {
-        print('AAAA FAILED TO SEND FILE $f');
+        Get.snackbar('Failed to send file'.tr, '${'Failed to send'.tr}: $f');
       }
       print('AAAA PayloadService send file finish: $f');
     }
