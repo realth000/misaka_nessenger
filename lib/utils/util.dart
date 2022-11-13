@@ -1,27 +1,30 @@
-/// Convert int bytes size to readable size.
+/// Convert int bytes [size] to readable size string.
 ///
-/// e.g:
+/// [digits] is digits after decimal point, MUST not less than zero.
 ///
-String readableSize(int size) {
+String readableSize(int size, {int digits = 2}) {
+  final fractionDigits = digits < 0 ? 2 : digits;
   var d = 0;
-  var s = size;
-  while (s >= 1024 && d < 3) {
-    s ~/= 1024;
+  var s = size.toDouble();
+  while (s >= 1024 && d < 5) {
+    s = s / 1024;
     d++;
   }
 
   switch (d) {
     case 0:
-      return '$size B';
+      return '${s.toStringAsFixed(fractionDigits)} B';
     case 1:
-      return '$size KB';
+      return '${s.toStringAsFixed(fractionDigits)} KB';
     case 2:
-      return '$size MB';
+      return '${s.toStringAsFixed(fractionDigits)} MB';
+      return '$s MB';
     case 3:
-      return '$size GB';
+      return '${s.toStringAsFixed(fractionDigits)} GB';
+      return '$s GB';
     case 4:
-      return '$size TB';
+      return '${s.toStringAsFixed(fractionDigits)} TB';
     default:
-      return '$size ??';
+      return '$s ??';
   }
 }

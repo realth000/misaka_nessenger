@@ -39,7 +39,6 @@ class PayloadService extends GetxService {
         remoteHost: remoteHost,
         remotePort: remotePort,
       );
-      print('AAAA 1');
       if (!await worker.sendFile()) {
         print('AAAA FAILED TO SEND FILE $f');
       }

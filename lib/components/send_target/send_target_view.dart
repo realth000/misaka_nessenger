@@ -55,7 +55,6 @@ class SendTargetWidget extends StatelessWidget {
                     constraints: const BoxConstraints(minHeight: 50),
                     child: ElevatedButton(
                       onPressed: () async {
-                        print('AAAA send button clicked!');
                         final payloadService = Get.find<PayloadService>();
                         if (payloadService.stagedPayloadPathList.isEmpty) {
                           print('AAAA send button empty!');

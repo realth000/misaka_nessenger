@@ -66,9 +66,7 @@ class PayloadWorker {
       return false;
     }
     final stream = file.openRead();
-    print('AAAA 2');
     await _client.sendFile(_generateSendRequestStream(stream));
-    print('AAAA 3');
     return true;
   }
 
@@ -77,9 +75,7 @@ class PayloadWorker {
   Stream<SendFileRequest> _generateSendRequestStream(
     Stream<List<int>> fileDataStream,
   ) async* {
-    print('AAAA 4');
     await for (final s in fileDataStream) {
-      print('AAAA 5 s= ${s.length}');
       final req = SendFileRequest()
         ..fileName = path.basename(filePath)
         ..fileSource = filePath

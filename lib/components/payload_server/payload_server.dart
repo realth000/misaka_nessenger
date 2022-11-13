@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:grpc/grpc.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../../api/protos/generated/messenger.pbgrpc.dart';
+import '../../utils/util.dart' as util;
 
-/// Worker to receive files and messages from remote machine.
+/// Server to receive files and messages from remote machine.
+///
+/// An instance should start when app started till app exit.
 class PayloadServer extends MessengerServiceBase {
-  /// Constructor, should call grpc channel.
+  /// Constructor.
   PayloadServer();
 
   /// Record finished file content part count.
@@ -13,23 +19,47 @@ class PayloadServer extends MessengerServiceBase {
   /// Record finished file content part size count.
   int fileContentSizeCount = 0;
 
+  /// Implementation of [sendFile] function in GRPC generated files.
+  ///
+  /// When remote machine (as a client) tries to call [sendFile] method in
+  /// proto file, this function will be called.
+  ///
+  /// The return value is a reply to remote machine (client).
   @override
   Future<SendFileReply> sendFile(
     ServiceCall call,
     Stream<SendFileRequest> request,
   ) async {
+    var fileName = '';
+    var checkExist = false;
     final peer = call.clientMetadata!['ClientID'] ?? 'UNKNOWN';
     print(
-        'AAAA PayloadSendWorker sendFile from peer $peer, request: ${request.toString()}');
+        'AAAA PayloadServer receive from peer $peer, request: ${request.toString()}');
+    final downloadDir = await path_provider.getDownloadsDirectory();
+    if (downloadDir == null) {
+      print('AAAA FAILED TO GET DOWNLOAD PATH');
+      return SendFileReply(finishedFileSize: 0);
+    }
     await for (final req in request) {
       fileContentCount++;
-      final name = req.fileName;
-      final source = req.fileSource;
-      final content = req.fileContent;
-      fileContentSizeCount += content.length;
+      fileContentSizeCount += req.fileContent.length;
       print(
-          'AAAA PayloadSendWorker sendFile name=$name, source=$source content=${content.length}');
+          'AAAA PayloadServer receive name=${req.fileName}, source=${req.fileSource} content=${req.fileContent.length}');
+      fileName = req.fileName;
+      final file = File('${downloadDir.path}/${req.fileName}');
+      if (!checkExist && file.existsSync()) {
+        await file.delete();
+      }
+      await file.writeAsBytes(
+        req.fileContent,
+        mode: FileMode.writeOnlyAppend,
+        flush: true,
+      );
+      checkExist = true;
+      print('AAAA write file to ${file.path}');
     }
+    print(
+        'AAAA PayloadServer finish receive file $fileName, size=${util.readableSize(fileContentSizeCount)}');
     return SendFileReply(finishedFileSize: fileContentSizeCount);
   }
 }
