@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../services/payload_service.dart';
+
 /// Widget to show and set send task target.
 ///
 /// Can set remote ip/port, user related info (username, password...)
@@ -52,7 +54,21 @@ class SendTargetWidget extends StatelessWidget {
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(minHeight: 50),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        print('AAAA send button clicked!');
+                        final payloadService = Get.find<PayloadService>();
+                        if (payloadService.stagedPayloadPathList.isEmpty) {
+                          print('AAAA send button empty!');
+                          return;
+                        }
+                        if (!await payloadService.startSendFile(
+                          remoteHost: 'localhost',
+                          remotePort: 10032,
+                        )) {
+                          print('AAAA send button failed!');
+                        }
+                        print('AAAA send button finished!');
+                      },
                       child: Text('Send'.tr),
                     ),
                   ),
