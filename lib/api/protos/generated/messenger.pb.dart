@@ -7,6 +7,7 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class SendFileRequest extends $pb.GeneratedMessage {
@@ -14,6 +15,7 @@ class SendFileRequest extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileName', protoName: 'fileName')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileSource', protoName: 'fileSource')
     ..a<$core.List<$core.int>>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileContent', $pb.PbFieldType.OY, protoName: 'fileContent')
+    ..a<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileSize', $pb.PbFieldType.OU6, protoName: 'fileSize', defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -22,6 +24,7 @@ class SendFileRequest extends $pb.GeneratedMessage {
     $core.String? fileName,
     $core.String? fileSource,
     $core.List<$core.int>? fileContent,
+    $fixnum.Int64? fileSize,
   }) {
     final _result = create();
     if (fileName != null) {
@@ -32,6 +35,9 @@ class SendFileRequest extends $pb.GeneratedMessage {
     }
     if (fileContent != null) {
       _result.fileContent = fileContent;
+    }
+    if (fileSize != null) {
+      _result.fileSize = fileSize;
     }
     return _result;
   }
@@ -82,6 +88,15 @@ class SendFileRequest extends $pb.GeneratedMessage {
   $core.bool hasFileContent() => $_has(2);
   @$pb.TagNumber(3)
   void clearFileContent() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get fileSize => $_getI64(3);
+  @$pb.TagNumber(4)
+  set fileSize($fixnum.Int64 v) { $_setInt64(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFileSize() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFileSize() => clearField(4);
 }
 
 class SendFileReply extends $pb.GeneratedMessage {
