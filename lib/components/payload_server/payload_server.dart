@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:grpc/grpc.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
@@ -33,7 +34,9 @@ class PayloadServer extends MessengerServiceBase {
     var fileName = '';
     var checkExist = false;
     final peer = call.clientMetadata!['ClientID'] ?? 'UNKNOWN';
-    final downloadDir = await path_provider.getDownloadsDirectory();
+    final downloadDir = GetPlatform.isAndroid
+        ? Directory('/storage/emulated/0/download')
+        : await path_provider.getDownloadsDirectory();
     if (downloadDir == null) {
       print('AAAA FAILED TO GET DOWNLOAD PATH');
       return SendFileReply(finishedFileSize: 0);
@@ -41,8 +44,6 @@ class PayloadServer extends MessengerServiceBase {
     await for (final req in request) {
       fileContentCount++;
       fileContentSizeCount += req.fileContent.length;
-      print(
-          'AAAA PayloadServer receive name=${req.fileName}, source=${req.fileSource} content=${req.fileContent.length}');
       fileName = req.fileName;
       final file = File('${downloadDir.path}/${req.fileName}');
       if (!checkExist && file.existsSync()) {
@@ -54,7 +55,6 @@ class PayloadServer extends MessengerServiceBase {
         flush: true,
       );
       checkExist = true;
-      print('AAAA write file to ${file.path}');
     }
     print(
         'AAAA PayloadServer finish receive file $fileName, size=${util.readableSize(fileContentSizeCount)}');

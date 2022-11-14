@@ -34,6 +34,7 @@ class NavigationBarComponent extends StatelessWidget {
             controller.currentIndex.value = index;
             Get.find<ScaffoldService>().currentIndex.value = index;
           },
+          showUnselectedLabels: false,
         ),
       );
 

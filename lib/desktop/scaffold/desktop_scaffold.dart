@@ -14,7 +14,7 @@ class DesktopScaffold extends StatelessWidget {
   const DesktopScaffold({required this.index, super.key});
 
   /// Current index to show in body.
-  /// index of [ScaffoldPagesList].
+  /// index of [DesktopScaffoldPagesList].
   final int index;
 
   @override
@@ -36,7 +36,7 @@ class DesktopScaffold extends StatelessWidget {
                     color: Get.theme.colorScheme.surface.withOpacity(0.8),
                     child: DesktopWindowButtons(),
                   ),
-                  Expanded(child: ScaffoldPagesList.pages[index]),
+                  Expanded(child: DesktopScaffoldPagesList.pages[index]),
                 ],
               ),
             ),

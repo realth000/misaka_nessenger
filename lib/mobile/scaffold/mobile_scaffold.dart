@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/navigation_bar/navigation_bar_view.dart';
 import '../../pages/scaffold/scaffold_pages_list.dart';
+import '../transport_page/mobile_transport_page.dart';
 
 /// App scaffold used in mobile platforms.
 ///
@@ -11,16 +12,27 @@ class MobileScaffold extends StatelessWidget {
   const MobileScaffold({required this.index, super.key});
 
   /// Current index to show in body.
-  /// index of [ScaffoldPagesList].
+  /// index of [MobileScaffoldPagesList].
   final int index;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ScaffoldPagesList.pages[index],
-      bottomNavigationBar: NavigationBarComponent(
-        isMobile: true,
-      ),
-    );
+  PreferredSizeWidget? _buildAppBarBottom() {
+    switch (index) {
+      case 0:
+        return MobileTransportPage.tabBar;
+      default:
+        return null;
+    }
   }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('MisakaNessenger'),
+          bottom: _buildAppBarBottom(),
+        ),
+        body: MobileScaffoldPagesList.pages[index],
+        bottomNavigationBar: NavigationBarComponent(
+          isMobile: true,
+        ),
+      );
 }

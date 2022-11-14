@@ -15,12 +15,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initServices();
   runApp(const MisakaApp());
-  doWhenWindowReady(() {
-    appWindow.size = const Size(800, 600);
-    appWindow.minSize = const Size(800, 600);
-    appWindow.alignment = Alignment.center;
-    appWindow.show();
-  });
+  if (GetPlatform.isDesktop) {
+    doWhenWindowReady(() {
+      appWindow.size = const Size(800, 600);
+      appWindow.minSize = const Size(800, 600);
+      appWindow.alignment = Alignment.center;
+      appWindow.show();
+    });
+  }
 }
 
 /// Init Getx services, should run before app start.
