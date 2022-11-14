@@ -32,6 +32,7 @@ class PayloadServer extends MessengerServiceBase {
     Stream<SendFileRequest> request,
   ) async {
     var fileName = '';
+    var fileSize = 0;
     var checkExist = false;
     final peer = call.clientMetadata!['ClientID'] ?? 'UNKNOWN';
     final downloadDir = GetPlatform.isAndroid
@@ -45,6 +46,7 @@ class PayloadServer extends MessengerServiceBase {
       fileContentCount++;
       fileContentSizeCount += req.fileContent.length;
       fileName = req.fileName;
+      fileSize = req.fileSize;
       final file = File('${downloadDir.path}/${req.fileName}');
       if (!checkExist && file.existsSync()) {
         await file.delete();

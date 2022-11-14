@@ -16,6 +16,9 @@ class PayloadService extends GetxService {
 
   late final grpc.Server _server;
 
+  /// Save all [PayloadWorker]s and their file path as unique key.
+  final workerPool = <String, PayloadWorker>{}.obs;
+
   @override
   void onClose() {
     _server.shutdown();
@@ -40,17 +43,27 @@ class PayloadService extends GetxService {
     required String remoteHost,
     required int remotePort,
   }) async {
-    for (final f in stagedPayloadPathList) {
-      final worker = PayloadWorker(
-        filePath: f,
-        remoteHost: remoteHost,
-        remotePort: remotePort,
-      );
+    workerPool.forEach((filePath, worker) async {
+      worker
+        ..remoteHost = remoteHost
+        ..remotePort = remotePort;
+      print('AAAA UPDAET HOST=$remoteHost PORT =$remotePort');
       if (!await worker.sendFile()) {
-        Get.snackbar('Failed to send file'.tr, '${'Failed to send'.tr}: $f');
+        Get.snackbar(
+          'Failed to send file'.tr,
+          '${'Failed to send'.tr}: $filePath',
+        );
       }
-      print('AAAA PayloadService send file finish: $f');
-    }
+      print('AAAA PayloadService send file finish: $filePath');
+    });
     return true;
+  }
+
+  /// Add [PayloadWorker] to [workerPool] for file in path [filePath].
+  void addWorker(String filePath) {
+    final worker = PayloadWorker(
+      filePath: filePath,
+    );
+    workerPool[filePath] = worker;
   }
 }

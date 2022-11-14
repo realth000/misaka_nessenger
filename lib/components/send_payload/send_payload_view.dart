@@ -26,6 +26,7 @@ class SendPayloadWidget extends GetView<PayloadService> {
         continue;
       }
       controller.stagedPayloadPathList.add(file.path!);
+      controller.addWorker(file.path!);
     }
   }
 
@@ -51,9 +52,11 @@ class SendPayloadWidget extends GetView<PayloadService> {
             child: Obx(
               () => ListView.builder(
                 itemExtent: 50,
-                itemCount: controller.stagedPayloadPathList.length,
-                itemBuilder: (context, index) => PayloadItemWidget(
-                  name: controller.stagedPayloadPathList[index],
+                itemCount: controller.workerPool.length,
+                itemBuilder: (context, index) => Obx(
+                  () => PayloadItemWidget(
+                    filePath: controller.workerPool.keys.toList()[index],
+                  ),
                 ),
               ),
             ),

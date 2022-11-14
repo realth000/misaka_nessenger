@@ -15,7 +15,7 @@ message SendFileRequest {
   string fileName = 1;
   string fileSource = 2;
   bytes fileContent = 3;
-  uint64 fileSize = 4;
+  int32 fileSize = 4;
 }
 
 message SendFileReply {
