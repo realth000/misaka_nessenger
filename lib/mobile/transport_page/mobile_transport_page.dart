@@ -13,18 +13,18 @@ class MobileTransportPage extends StatelessWidget {
 
   /// Tab bar to use in app bar.
   static final tabBar = TabBar(
-    controller: Get.put(_MobileTabController()).controller,
+    controller: Get.put(MobileTabController()).controller,
     tabs: [
       Tab(
-        text: 'Load Files'.tr,
+        text: 'Select Files'.tr,
       ),
       Tab(
-        text: 'Send'.tr,
+        text: 'Network Control'.tr,
       ),
     ],
   );
 
-  final _tabController = Get.put(_MobileTabController());
+  final _tabController = Get.put(MobileTabController());
 
   @override
   Widget build(BuildContext context) => TabBarView(
@@ -42,7 +42,7 @@ class MobileTransportPage extends StatelessWidget {
       );
 }
 
-class _MobileTabController extends GetxController
+class MobileTabController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final List<Tab> tabs = <Tab>[
     Tab(text: 'Transport'.tr),

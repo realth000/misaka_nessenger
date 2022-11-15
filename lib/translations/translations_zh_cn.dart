@@ -2,7 +2,8 @@
 const Map<String, String> translationZhCN = <String, String>{
   'Transport': '传输',
   'Settings': '设置',
-  'Add files': '添加文件',
+  'Select Files': '选择文件',
+  'Network Control': '网络控制',
   'Send': '发送',
   'Remote IP': '远端IP',
   'Remote Port': '远端端口',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../components/navigation_bar/navigation_bar_view.dart';
+import '../../components/send_payload/add_payload_button_widget.dart';
 import '../../pages/scaffold/scaffold_pages_list.dart';
 import '../window_bar_buttons.dart';
 
@@ -16,6 +17,15 @@ class DesktopScaffold extends StatelessWidget {
   /// Current index to show in body.
   /// index of [DesktopScaffoldPagesList].
   final int index;
+
+  Widget? _buildFloatingActionButton() {
+    switch (index) {
+      case 0:
+        return const AddPayloadButton();
+      default:
+        return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -42,5 +52,6 @@ class DesktopScaffold extends StatelessWidget {
             ),
           ],
         ),
+        floatingActionButton: _buildFloatingActionButton(),
       );
 }

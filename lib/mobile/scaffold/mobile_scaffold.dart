@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../components/navigation_bar/navigation_bar_view.dart';
+import '../../components/send_payload/add_payload_button_widget.dart';
 import '../../pages/scaffold/scaffold_pages_list.dart';
 import '../transport_page/mobile_transport_page.dart';
 
@@ -24,6 +25,15 @@ class MobileScaffold extends StatelessWidget {
     }
   }
 
+  Widget? _buildFloatingActionButton() {
+    switch (index) {
+      case 0:
+        return const AddPayloadButton();
+      default:
+        return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -34,5 +44,6 @@ class MobileScaffold extends StatelessWidget {
         bottomNavigationBar: NavigationBarComponent(
           isMobile: true,
         ),
+        floatingActionButton: _buildFloatingActionButton(),
       );
 }

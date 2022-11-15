@@ -2,7 +2,8 @@
 const Map<String, String> translationEnUS = <String, String>{
   'Transport': 'Transport',
   'Settings': 'Settings',
-  'Add files': 'Add files',
+  'Select Files': 'Select Files',
+  'Network Control': 'Network Control',
   'Send': 'Send',
   'Remote IP': 'Remote IP',
   'Remote Port': 'Remote Port',
