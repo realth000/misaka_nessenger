@@ -33,7 +33,7 @@ class PayloadServer extends MessengerServiceBase {
   ) async {
     var fileName = '';
     var fileSize = 0;
-    var checkExist = false;
+    var checkExist = true;
     final peer = call.clientMetadata!['ClientID'] ?? 'UNKNOWN';
     final downloadDir = GetPlatform.isAndroid
         ? Directory('/storage/emulated/0/download')
@@ -42,22 +42,32 @@ class PayloadServer extends MessengerServiceBase {
       print('AAAA FAILED TO GET DOWNLOAD PATH');
       return SendFileReply(finishedFileSize: 0);
     }
+    late final String filePath;
+    late final File tmpFile;
     await for (final req in request) {
       fileContentCount++;
       fileContentSizeCount += req.fileContent.length;
       fileName = req.fileName;
       fileSize = req.fileSize;
-      final file = File('${downloadDir.path}/${req.fileName}');
-      if (!checkExist && file.existsSync()) {
-        await file.delete();
+      filePath = '${downloadDir.path}${Platform.pathSeparator}${req.fileName}';
+      tmpFile = File('$filePath.tmp');
+      if (checkExist) {
+        if (tmpFile.existsSync()) {
+          await tmpFile.delete();
+        }
       }
-      await file.writeAsBytes(
+      await tmpFile.writeAsBytes(
         req.fileContent,
         mode: FileMode.writeOnlyAppend,
         flush: true,
       );
-      checkExist = true;
+      checkExist = false;
     }
+    final file = File(filePath);
+    if (file.existsSync()) {
+      await file.delete();
+    }
+    await tmpFile.rename(filePath);
     print(
         'AAAA PayloadServer finish receive file $fileName, size=${util.readableSize(fileContentSizeCount)}');
     return SendFileReply(finishedFileSize: fileContentSizeCount);
