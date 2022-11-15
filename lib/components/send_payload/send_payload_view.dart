@@ -53,10 +53,8 @@ class SendPayloadWidget extends GetView<PayloadService> {
               () => ListView.builder(
                 itemExtent: 50,
                 itemCount: controller.workerPool.length,
-                itemBuilder: (context, index) => Obx(
-                  () => PayloadItemWidget(
-                    filePath: controller.workerPool.keys.toList()[index],
-                  ),
+                itemBuilder: (context, index) => PayloadItemWidget(
+                  filePath: controller.workerPool.keys.toList()[index],
                 ),
               ),
             ),

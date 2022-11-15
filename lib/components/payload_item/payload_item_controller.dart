@@ -17,13 +17,14 @@ class PayloadItemController extends GetxController {
     if (worker == null) {
       return;
     }
-    print('AAAA WORKER FOR PATH $filePath');
     fileSize.value = worker.fileSize.toDouble();
-    finishSizeStreamSub = worker.finishSizeStream.listen((size) {
-      finishedSize.value += size;
-      print(
-          'AAAA SIZE STREAM RECEIVE ${fileName} ${size} ${finishedSize.value}');
-    });
+    if (worker.finished && worker.succeed) {
+      finishedSize.value = fileSize.value;
+    } else {
+      finishSizeStreamSub = worker.finishSizeStream.listen((size) {
+        finishedSize.value = size.toDouble();
+      });
+    }
   }
 
   /// File path of the payload item.

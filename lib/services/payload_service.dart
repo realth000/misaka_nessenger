@@ -44,16 +44,23 @@ class PayloadService extends GetxService {
     required int remotePort,
   }) async {
     workerPool.forEach((filePath, worker) async {
+      if (worker.finished) {
+        return;
+      }
       worker
         ..remoteHost = remoteHost
         ..remotePort = remotePort;
       print('AAAA UPDAET HOST=$remoteHost PORT =$remotePort');
       if (!await worker.sendFile()) {
-        Get.snackbar(
-          'Failed to send file'.tr,
-          '${'Failed to send'.tr}: $filePath',
+        worker.succeed = false;
+        Get.rawSnackbar(
+          title: 'Failed to send file'.tr,
+          message: '${'Failed to send'.tr}: $filePath',
         );
+      } else {
+        worker.succeed = true;
       }
+      worker.finished = true;
       print('AAAA PayloadService send file finish: $filePath');
     });
     return true;
@@ -61,6 +68,9 @@ class PayloadService extends GetxService {
 
   /// Add [PayloadWorker] to [workerPool] for file in path [filePath].
   void addWorker(String filePath) {
+    if (workerPool.containsKey(filePath)) {
+      return;
+    }
     final worker = PayloadWorker(
       filePath: filePath,
     );

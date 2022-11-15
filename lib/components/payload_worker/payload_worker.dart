@@ -44,6 +44,15 @@ class PayloadWorker {
   /// Local file size.
   late final int fileSize;
 
+  /// Payload transport finished size (bytes).
+  int finishedSize = 0;
+
+  /// If payload work finished.
+  bool finished = false;
+
+  /// If payload work succeed.
+  bool succeed = false;
+
   /// Controller of [finishSizeStream].
   final _finishSizeStreamController =
       StreamController<int>.broadcast(sync: true);
@@ -102,9 +111,8 @@ class PayloadWorker {
         ..fileSource = filePath
         ..fileContent = s
         ..fileSize = fileSize;
-      _finishSizeStreamSink.add(s.length);
-      print('AAAA ADD TO STREAM ${fileName} ${s.length}');
-      print('AAAA [SENDER] send file $fileName [${s.length} Bytes]');
+      finishedSize += s.length;
+      _finishSizeStreamSink.add(finishedSize);
       yield req;
     }
   }

@@ -47,7 +47,8 @@ class SendTargetWidget extends StatelessWidget {
 
     final payloadService = Get.find<PayloadService>();
     if (payloadService.stagedPayloadPathList.isEmpty) {
-      Get.snackbar('Can not send file'.tr, 'No file selected'.tr);
+      Get.rawSnackbar(
+          title: 'Can not send file'.tr, message: 'No file selected'.tr);
       return;
     }
     if (!await payloadService.startSendFile(
