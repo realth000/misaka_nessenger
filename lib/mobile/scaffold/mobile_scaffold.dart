@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../components/navigation_bar/navigation_bar_view.dart';
 import '../../components/send_payload/add_payload_button_widget.dart';
 import '../../pages/scaffold/scaffold_pages_list.dart';
+import '../../utils/util_widget.dart';
 import '../transport_page/mobile_transport_page.dart';
 
 /// App scaffold used in mobile platforms.
@@ -37,7 +38,7 @@ class MobileScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('MisakaNessenger'),
+          title: buildLocalIPTextWidget(),
           bottom: _buildAppBarBottom(),
         ),
         body: MobileScaffoldPagesList.pages[index],

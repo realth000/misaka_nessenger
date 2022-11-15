@@ -8,10 +8,13 @@
 
 #include <bitsdojo_window_windows/bitsdojo_window_plugin.h>
 #include <network_info_plus/network_info_plus_windows_plugin.h>
+#include <r_get_ip/r_get_ip_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   BitsdojoWindowPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("BitsdojoWindowPlugin"));
   NetworkInfoPlusWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("NetworkInfoPlusWindowsPlugin"));
+  RGetIpPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("RGetIpPlugin"));
 }
