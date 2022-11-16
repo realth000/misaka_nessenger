@@ -22,8 +22,12 @@ class MisakaNavigationBarController extends GetxController {
   /// Items in navigation bar.
   final List<MisakaBarItemWidget> _barItems = <MisakaBarItemWidget>[
     MisakaBarItemWidget(
-      icon: const Icon(Icons.import_export),
-      label: 'Transport'.tr,
+      icon: const Icon(Icons.upload),
+      label: 'Send'.tr,
+    ),
+    MisakaBarItemWidget(
+      icon: const Icon(Icons.download),
+      label: 'Receive'.tr,
     ),
     MisakaBarItemWidget(
       icon: const Icon(Icons.settings),

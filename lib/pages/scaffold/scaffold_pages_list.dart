@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../desktop/transport_page/deskop_transport_page.dart';
-import '../../mobile/transport_page/mobile_transport_page.dart';
+import '../../desktop/receive_page/desktop_receive_page.dart';
+import '../../desktop/send_page/desktop_send_page.dart';
+import '../../mobile/receive_page/mobile_receive_page.dart';
+import '../../mobile/send_page/mobile_send_page.dart';
 import '../settings_page/settings_page.dart';
 
 /// Pages in app scaffold body.
@@ -12,7 +14,8 @@ class DesktopScaffoldPagesList {
 
   /// Scaffold body pages.
   static final pages = <Widget>[
-    DesktopTransportPage(),
+    DesktopSendPage(),
+    DesktopReceivePage(),
     const SettingsPage(),
   ];
 }
@@ -25,7 +28,8 @@ class MobileScaffoldPagesList {
 
   /// Scaffold body pages.
   static final pages = <Widget>[
-    MobileTransportPage(),
+    MobileSendPage(),
+    MobileReceivePage(),
     const SettingsPage(),
   ];
 }

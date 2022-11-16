@@ -4,7 +4,7 @@ import '../../components/navigation_bar/navigation_bar_view.dart';
 import '../../components/send_payload/add_payload_button_widget.dart';
 import '../../pages/scaffold/scaffold_pages_list.dart';
 import '../../utils/util_widget.dart';
-import '../transport_page/mobile_transport_page.dart';
+import '../send_page/mobile_send_page.dart';
 
 /// App scaffold used in mobile platforms.
 ///
@@ -20,7 +20,7 @@ class MobileScaffold extends StatelessWidget {
   PreferredSizeWidget? _buildAppBarBottom() {
     switch (index) {
       case 0:
-        return MobileTransportPage.tabBar;
+        return MobileSendPage.tabBar;
       default:
         return null;
     }

@@ -6,9 +6,9 @@ import '../../components/send_target/send_target_view.dart';
 /// Transport page uses in desktop platforms.
 ///
 /// Build with main scaffold and data show in transport page.
-class DesktopTransportPage extends StatelessWidget {
+class DesktopSendPage extends StatelessWidget {
   /// Constructor.
-  DesktopTransportPage({super.key});
+  DesktopSendPage({super.key});
 
   @override
   Widget build(BuildContext context) => Column(

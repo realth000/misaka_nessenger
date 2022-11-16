@@ -7,9 +7,9 @@ import '../../components/send_target/send_target_view.dart';
 /// Transport page uses in desktop platforms.
 ///
 /// Build with main scaffold and data show in transport page.
-class MobileTransportPage extends StatelessWidget {
+class MobileSendPage extends StatelessWidget {
   /// Constructor.
-  MobileTransportPage({super.key});
+  MobileSendPage({super.key});
 
   /// Tab bar to use in app bar.
   static final tabBar = TabBar(
@@ -19,7 +19,7 @@ class MobileTransportPage extends StatelessWidget {
         text: 'Select Files'.tr,
       ),
       Tab(
-        text: 'Network Control'.tr,
+        text: 'Select Remote'.tr,
       ),
     ],
   );
