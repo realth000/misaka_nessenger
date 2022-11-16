@@ -14,4 +14,5 @@ const Map<String, String> translationEnUS = <String, String>{
   'Remote port can not be empty': 'Remote port can not be empty',
   'Invalid remote port': 'Invalid remote port',
   'Remote port should be in 0~65535': 'Remote port should be in 0~65535',
+  'Local IP:': 'Local IP:',
 };

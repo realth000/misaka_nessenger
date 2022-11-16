@@ -6,6 +6,7 @@ import '../../components/navigation_bar/navigation_bar_view.dart';
 import '../../components/send_payload/add_payload_button_widget.dart';
 import '../../pages/scaffold/scaffold_pages_list.dart';
 import '../window_bar_buttons.dart';
+import 'scaffold_bottom_widget.dart';
 
 /// Scaffold uses in desktop platforms.
 ///
@@ -53,5 +54,6 @@ class DesktopScaffold extends StatelessWidget {
           ],
         ),
         floatingActionButton: _buildFloatingActionButton(),
+        bottomNavigationBar: const DesktopScaffoldBottomWidget(),
       );
 }

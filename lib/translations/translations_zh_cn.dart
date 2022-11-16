@@ -14,4 +14,5 @@ const Map<String, String> translationZhCN = <String, String>{
   'Remote port can not be empty': '远端端口不能为空',
   'Invalid remote port': '无效端口号',
   'Remote port should be in 0~65535': '端口号应该在0~65535之间',
+  'Local IP:': '本机IP：',
 };

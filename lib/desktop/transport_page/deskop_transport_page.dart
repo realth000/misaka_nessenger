@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../components/send_payload/send_payload_view.dart';
 import '../../components/send_target/send_target_view.dart';
-import '../../utils/util_widget.dart';
 
 /// Transport page uses in desktop platforms.
 ///
@@ -14,7 +13,6 @@ class DesktopTransportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: <Widget>[
-          buildLocalIPTextWidget(),
           Expanded(
             child: Row(
               children: <Widget>[
