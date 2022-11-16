@@ -45,11 +45,19 @@ class PayloadServer extends MessengerServiceBase {
     var checkExist = true;
     final peer = call.clientMetadata!['ClientID'] ?? 'UNKNOWN';
     final downloadDir = GetPlatform.isAndroid
-        ? Directory('/storage/emulated/0/download')
+        ? Directory('/storage/emulated/0/Download/MisakaNessenger')
         : await path_provider.getDownloadsDirectory();
     if (downloadDir == null) {
       print('AAAA FAILED TO GET DOWNLOAD PATH');
       return SendFileReply(finishedFileSize: 0);
+    }
+    if (!downloadDir.existsSync()) {
+      try {
+        await downloadDir.create();
+      } catch (e) {
+        print('AAAA FAILED TO CREATE download dir');
+        return SendFileReply(finishedFileSize: -2);
+      }
     }
 
     late String filePath;

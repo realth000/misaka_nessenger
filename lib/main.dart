@@ -1,6 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'routes/misaka_pages.dart';
 import 'routes/misaka_routes.dart';
@@ -22,6 +23,15 @@ void main() async {
       appWindow.alignment = Alignment.center;
       appWindow.show();
     });
+  }
+  if (GetPlatform.isAndroid) {
+    if (!await Permission.storage.isGranted &&
+        !await Permission.storage.request().isGranted) {
+      Get.rawSnackbar(
+        title: 'Permission required'.tr,
+        message: 'Need permission to access download directory.'.tr,
+      );
+    }
   }
 }
 
