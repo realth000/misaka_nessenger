@@ -24,7 +24,10 @@ class MobileSendPage extends StatelessWidget {
     ],
   );
 
-  final _tabController = Get.put(MobileTabController());
+  final _tabController = Get.put(
+    MobileTabController(),
+    permanent: true,
+  );
 
   @override
   Widget build(BuildContext context) => TabBarView(
@@ -49,12 +52,16 @@ class MobileTabController extends GetxController
     Tab(text: 'Settings'.tr),
   ];
 
-  late TabController controller;
+  late final TabController controller;
 
   @override
   void onInit() {
     super.onInit();
-    controller = TabController(length: tabs.length, vsync: this);
+    controller = TabController(
+      length: tabs.length,
+      vsync: this,
+      animationDuration: const Duration(milliseconds: 10),
+    );
   }
 
   @override
