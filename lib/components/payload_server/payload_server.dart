@@ -42,8 +42,8 @@ class PayloadServer extends MessengerServiceBase {
       print('AAAA FAILED TO GET DOWNLOAD PATH');
       return SendFileReply(finishedFileSize: 0);
     }
-    late final String filePath;
-    late final File tmpFile;
+    late String filePath;
+    late File tmpFile;
     await for (final req in request) {
       fileContentCount++;
       fileContentSizeCount += req.fileContent.length;
