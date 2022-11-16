@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../common/payload_type.dart';
 import '../../services/payload_service.dart';
 import '../payload_item/payload_item_view.dart';
 
@@ -27,6 +28,7 @@ class SendPayloadWidget extends GetView<PayloadService> {
                 itemCount: controller.workerPool.length,
                 itemBuilder: (context, index) => PayloadItemWidget(
                   filePath: controller.workerPool.keys.toList()[index],
+                  payloadType: PayloadType.send,
                 ),
               ),
             ),

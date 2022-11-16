@@ -19,6 +19,15 @@ class PayloadService extends GetxService {
   /// Save all [PayloadWorker]s and their file path as unique key.
   final workerPool = <String, PayloadWorker>{}.obs;
 
+  /// Get GRPC connection pool from PayloadServer in GRPC server.
+  Map<String, PayloadServeConnection>? connectionPool() {
+    final s = _server.lookupService(PayloadServer().$name);
+    if (s != null && s is PayloadServer) {
+      return s.connectionPool;
+    }
+    return null;
+  }
+
   @override
   void onClose() {
     _server.shutdown();

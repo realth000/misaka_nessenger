@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../common/payload_type.dart';
 import 'payload_item_controller.dart';
 
 /// Payload item widget in UI.
@@ -11,8 +12,15 @@ class PayloadItemWidget extends StatelessWidget {
   /// Constructor.
   ///
   /// Need to give the name.
-  PayloadItemWidget({required String filePath, super.key}) {
-    _controller = PayloadItemController(filePath: filePath);
+  PayloadItemWidget({
+    required String filePath,
+    required PayloadType payloadType,
+    super.key,
+  }) {
+    _controller = PayloadItemController(
+      filePath: filePath,
+      payloadType: payloadType,
+    );
   }
 
   late final PayloadItemController _controller;

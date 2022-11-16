@@ -6,6 +6,9 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../../api/protos/generated/messenger.pbgrpc.dart';
 import '../../utils/util.dart' as util;
+import 'payload_serve_connection/payload_serve_connection.dart';
+
+export './payload_serve_connection/payload_serve_connection.dart';
 
 /// Server to receive files and messages from remote machine.
 ///
@@ -19,6 +22,12 @@ class PayloadServer extends MessengerServiceBase {
 
   /// Record finished file content part size count.
   int fileContentSizeCount = 0;
+
+  /// Save all GRPC connections.
+  ///
+  /// These connections came from outside.
+  /// All connections represents "receive" payload work.
+  final connectionPool = <String, PayloadServeConnection>{}.obs;
 
   /// Implementation of [sendFile] function in GRPC generated files.
   ///
@@ -42,6 +51,7 @@ class PayloadServer extends MessengerServiceBase {
       print('AAAA FAILED TO GET DOWNLOAD PATH');
       return SendFileReply(finishedFileSize: 0);
     }
+
     late String filePath;
     late File tmpFile;
     await for (final req in request) {
@@ -52,6 +62,22 @@ class PayloadServer extends MessengerServiceBase {
       filePath = '${downloadDir.path}${Platform.pathSeparator}${req.fileName}';
       tmpFile = File('$filePath.tmp');
       if (checkExist) {
+        /// For existing files, these tasks may be restart, so we update task
+        /// information and reset finishedSize to zero.
+        if (connectionPool.containsKey(filePath)) {
+          connectionPool[filePath]!
+            ..filePath = filePath
+            ..fileName = fileName
+            ..fileSize = fileSize
+            ..finishedSize = 0;
+        } else {
+          connectionPool[filePath] = PayloadServeConnection(
+            filePath: filePath,
+            fileName: fileName,
+            fileSize: fileSize,
+          );
+        }
+
         if (tmpFile.existsSync()) {
           await tmpFile.delete();
         }
@@ -61,6 +87,7 @@ class PayloadServer extends MessengerServiceBase {
         mode: FileMode.writeOnlyAppend,
         flush: true,
       );
+      connectionPool[filePath]!.addFinishSize(req.fileContent.length);
       checkExist = false;
     }
     final file = File(filePath);
@@ -68,8 +95,11 @@ class PayloadServer extends MessengerServiceBase {
       await file.delete();
     }
     await tmpFile.rename(filePath);
+    connectionPool[filePath]!.finished = true;
+    connectionPool[filePath]!.succeed = true;
+    connectionPool[filePath]!.forceCompleteFinishedSize();
     print(
-        'AAAA PayloadServer finish receive file $fileName, size=${util.readableSize(fileContentSizeCount)}');
+        'AAAA PayloadServer finish receive file $fileName, size = ${fileSize}, sizeCount=${util.readableSize(fileContentSizeCount)}');
     return SendFileReply(finishedFileSize: fileContentSizeCount);
   }
 }
