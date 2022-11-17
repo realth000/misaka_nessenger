@@ -87,7 +87,6 @@ class PayloadWorker {
       _channel,
       options: CallOptions(
         metadata: {'ClientID': '123'},
-        timeout: const Duration(seconds: 10),
       ),
     );
     final file = File(filePath);

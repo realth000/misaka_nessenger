@@ -52,9 +52,9 @@ class PayloadService extends GetxService {
     required String remoteHost,
     required int remotePort,
   }) async {
-    workerPool.forEach((filePath, worker) async {
+    for (final worker in workerPool.values) {
       if (worker.finished) {
-        return;
+        continue;
       }
       worker
         ..remoteHost = remoteHost
@@ -64,14 +64,14 @@ class PayloadService extends GetxService {
         worker.succeed = false;
         Get.rawSnackbar(
           title: 'Failed to send file'.tr,
-          message: '${'Failed to send'.tr}: $filePath',
+          message: '${'Failed to send'.tr}: ${worker.filePath}',
         );
       } else {
         worker.succeed = true;
       }
       worker.finished = true;
-      print('AAAA PayloadService send file finish: $filePath');
-    });
+      print('AAAA PayloadService send file finish: ${worker.filePath}');
+    }
     return true;
   }
 
