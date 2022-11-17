@@ -17,10 +17,11 @@ class DesktopSendPage extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 const Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: SendPayloadWidget(),
-                  ),
+                  child: SendPayloadWidget(),
+                ),
+                const VerticalDivider(
+                  width: 2,
+                  thickness: 2,
                 ),
                 Expanded(
                   child: Padding(

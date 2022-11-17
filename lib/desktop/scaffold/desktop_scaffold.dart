@@ -54,6 +54,8 @@ class DesktopScaffold extends StatelessWidget {
           ],
         ),
         floatingActionButton: _buildFloatingActionButton(),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterFloat,
         bottomNavigationBar: const DesktopScaffoldBottomWidget(),
       );
 }
