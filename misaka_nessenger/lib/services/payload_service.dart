@@ -1,8 +1,7 @@
-import 'package:get/get.dart';
-import 'package:grpc/grpc.dart' as grpc;
+import 'dart:io';
 
-import '../components/payload_server/payload_server.dart';
-import '../components/payload_worker/payload_worker.dart';
+import 'package:get/get.dart';
+
 import 'config_service.dart';
 
 /// Service that controls and handles transport tasks.
@@ -14,23 +13,25 @@ class PayloadService extends GetxService {
   /// Local path: /usr/share/xxx
   final stagedPayloadPathList = <String>[].obs;
 
-  late final grpc.Server _server;
+  /// Server executable file path on Windows platform.
+  static final String serverExePathWindows =
+      '${Directory.current.path}\\MisakaNessengerServer.exe';
 
-  /// Save all [PayloadWorker]s and their file path as unique key.
-  final workerPool = <String, PayloadWorker>{}.obs;
-
-  /// Get GRPC connection pool from PayloadServer in GRPC server.
-  Map<String, PayloadServeConnection>? connectionPool() {
-    final s = _server.lookupService(PayloadServer().$name);
-    if (s != null && s is PayloadServer) {
-      return s.connectionPool;
-    }
-    return null;
-  }
+  /// Server executable file path on Linux platform.
+  static final String serverExePathLinux =
+      '${Directory.current.path}/MisakaNessengerServer';
 
   @override
-  void onClose() {
-    _server.shutdown();
+  void onClose() {}
+
+  String _getServerExePath() {
+    if (GetPlatform.isWindows) {
+      return serverExePathWindows;
+    } else if (GetPlatform.isLinux) {
+      return serverExePathLinux;
+    } else {
+      return '';
+    }
   }
 
   /// Init before app start.
@@ -41,8 +42,10 @@ class PayloadService extends GetxService {
       serverPort = 10032;
       await Get.find<ConfigService>().saveInt('LocalServerPort', 10032);
     }
-    _server = grpc.Server([PayloadServer()]);
-    await _server.serve(port: serverPort);
+
+    print('RUNNING IN: ${Directory.current.path}');
+    Process.run(_getServerExePath(), <String>[]);
+    // await _server.serve(port: serverPort);
     print('AAAA PayloadService: start listening at port $serverPort');
     return this;
   }
@@ -52,37 +55,9 @@ class PayloadService extends GetxService {
     required String remoteHost,
     required int remotePort,
   }) async {
-    for (final worker in workerPool.values) {
-      if (worker.finished) {
-        continue;
-      }
-      worker
-        ..remoteHost = remoteHost
-        ..remotePort = remotePort;
-      print('AAAA UPDAET HOST=$remoteHost PORT =$remotePort');
-      if (!await worker.sendFile()) {
-        worker.succeed = false;
-        Get.rawSnackbar(
-          title: 'Failed to send file'.tr,
-          message: '${'Failed to send'.tr}: ${worker.filePath}',
-        );
-      } else {
-        worker.succeed = true;
-      }
-      worker.finished = true;
-      print('AAAA PayloadService send file finish: ${worker.filePath}');
-    }
     return true;
   }
 
   /// Add [PayloadWorker] to [workerPool] for file in path [filePath].
-  void addWorker(String filePath) {
-    if (workerPool.containsKey(filePath)) {
-      return;
-    }
-    final worker = PayloadWorker(
-      filePath: filePath,
-    );
-    workerPool[filePath] = worker;
-  }
+  void addWorker(String filePath) {}
 }

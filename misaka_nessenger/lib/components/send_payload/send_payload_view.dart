@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../common/payload_type.dart';
 import '../../services/payload_service.dart';
-import '../payload_item/payload_item_view.dart';
 
 /// Widget to show and set send task payload: file or directory.
 ///
@@ -22,16 +20,17 @@ class SendPayloadWidget extends GetView<PayloadService> {
             height: 10,
           ),
           Expanded(
-            child: Obx(
-              () => ListView.builder(
-                itemExtent: 50,
-                itemCount: controller.workerPool.length,
-                itemBuilder: (context, index) => PayloadItemWidget(
-                  filePath: controller.workerPool.keys.toList()[index],
-                  payloadType: PayloadType.send,
-                ),
-              ),
-            ),
+            child: Text('TEST!'),
+            // Obx(
+            //   () => ListView.builder(
+            //     itemExtent: 50,
+            //     itemCount: 0,
+            //     itemBuilder: (context, index) => PayloadItemWidget(
+            //       filePath: '',
+            //       payloadType: PayloadType.send,
+            //     ),
+            //   ),
+            // ),
           ),
         ],
       );

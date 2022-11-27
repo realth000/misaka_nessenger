@@ -12,12 +12,14 @@ class ReceivePayloadWidget extends GetView<PayloadService> {
 
   @override
   Widget build(BuildContext context) {
-    final pool = controller.connectionPool();
+    //final pool = controller.connectionPool();
+    final pool = null;
     if (pool == null) {
       return Center(
         child: Text('No receive task'.tr),
       );
     }
+    return Text('TEST!');
     return Obx(
       () => ListView.builder(
         itemExtent: 50,
