@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 
+import '../components/payload_worker/payload_worker.dart';
 import 'config_service.dart';
 
 /// Service that controls and handles transport tasks.
@@ -12,6 +13,9 @@ class PayloadService extends GetxService {
   ///
   /// Local path: /usr/share/xxx
   final stagedPayloadPathList = <String>[].obs;
+
+  /// All saved [PayloadWorker]s , use each file path as unique key.
+  final workerPool = <String, PayloadWorker>{}.obs;
 
   /// Server executable file path on Windows platform.
   static final String serverExePathWindows =
@@ -43,8 +47,13 @@ class PayloadService extends GetxService {
       await Get.find<ConfigService>().saveInt('LocalServerPort', 10032);
     }
 
-    print('RUNNING IN: ${Directory.current.path}');
-    Process.run(_getServerExePath(), <String>[]);
+    if (!GetPlatform.isMobile) {
+      print('RUNNING IN: ${Directory.current.path}');
+      Process.run(
+        _getServerExePath(),
+        <String>[],
+      );
+    }
     // await _server.serve(port: serverPort);
     print('AAAA PayloadService: start listening at port $serverPort');
     return this;
@@ -55,9 +64,32 @@ class PayloadService extends GetxService {
     required String remoteHost,
     required int remotePort,
   }) async {
+    for (final worker in workerPool.values) {
+      worker
+        ..remoteHost = remoteHost
+        ..remotePort = remotePort;
+      print('AAAA UPDAET HOST=$remoteHost PORT =$remotePort');
+      if (!await worker.sendFile()) {
+        worker.succeed = false;
+        Get.rawSnackbar(
+          title: 'Failed to send file'.tr,
+          message: '${'Failed to send'.tr}: ${worker.filePath}',
+        );
+      } else {
+        worker.succeed = true;
+      }
+      worker.finished = true;
+      print('AAAA PayloadService send file finish: ${worker.filePath}');
+    }
     return true;
   }
 
   /// Add [PayloadWorker] to [workerPool] for file in path [filePath].
-  void addWorker(String filePath) {}
+  void addWorker(String filePath) {
+    if (workerPool.containsKey(filePath)) {
+      return;
+    }
+    final worker = PayloadWorker(filePath: filePath);
+    workerPool[filePath] = worker;
+  }
 }

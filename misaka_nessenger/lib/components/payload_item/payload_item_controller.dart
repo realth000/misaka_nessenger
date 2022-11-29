@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 
 import '../../common/payload_type.dart';
+import '../../services/payload_service.dart';
 
 /// Controller of payload item.
 ///
@@ -13,7 +14,20 @@ class PayloadItemController extends GetxController {
   /// Constructor
   PayloadItemController({required this.filePath, required this.payloadType}) {
     fileName = path.basename(filePath);
-    if (payloadType == PayloadType.send) {}
+    if (payloadType == PayloadType.send) {
+      final worker = Get.find<PayloadService>().workerPool[filePath];
+      if (worker == null) {
+        return;
+      }
+      if (worker.finished && worker.succeed) {
+        finishedSize.value = fileSize.value;
+      } else {
+        finishSizeStreamSub = worker.finishedSizeStream.listen((size) {
+          fileSize.value = worker.fileSize.toDouble();
+          finishedSize.value = size.toDouble();
+        });
+      }
+    }
     if (payloadType == PayloadType.receive) {}
   }
 
