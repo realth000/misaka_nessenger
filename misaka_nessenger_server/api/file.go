@@ -11,6 +11,10 @@ import (
 func Upload(c *gin.Context) {
 	log.Println("AAAA GET UPLOAD")
 	file, err := c.FormFile("file")
+	if err != nil {
+		log.Printf("failed to get file in upload context: %v\n", err)
+		return
+	}
 	saveFilePath, err := getFileSavePath(file.Filename)
 	if err != nil {
 		c.String(500, "Server can not get save path for file %s", file.Filename)
