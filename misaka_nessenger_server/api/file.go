@@ -1,16 +1,30 @@
 package api
 
 import (
+	"MisakaNessengerServer/common"
+	"MisakaNessengerServer/core"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
+	"mime/multipart"
 	"os"
 	"runtime"
 )
 
 func Upload(c *gin.Context) {
+	var file *multipart.FileHeader
+	var err error
 	log.Println("AAAA GET UPLOAD")
-	file, err := c.FormFile("file")
+
+	// The tmp file path used by c.FormFile in os.file_unix.go is "/data/local/tmp" on Android,
+	// which is inaccessible without root privilege, correct it before call FormFile.
+	if runtime.GOOS == "android" {
+		core.SetAndroidTmpDirEnv(os.Getenv(common.AndroidTmpDirEnvName))
+		file, err = c.FormFile("file")
+		core.ResetAndroidTmpDirEnv()
+	} else {
+		file, err = c.FormFile("file")
+	}
 	if err != nil {
 		log.Printf("failed to get file in upload context: %v\n", err)
 		return
