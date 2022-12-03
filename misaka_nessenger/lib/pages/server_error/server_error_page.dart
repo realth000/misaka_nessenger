@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 
+import '../../common/init.dart';
+
 /// Page that shows when MisakaNessengerServer failed to start.
 class MisakaServerErrorPage extends StatelessWidget {
   /// Constructor.
@@ -28,8 +30,10 @@ class MisakaServerErrorPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   await Get.deleteAll(force: true);
+                  await initServices();
                   await Phoenix.rebirth(Get.context!);
-                  Get.reset();
+                  // Get.reset();
+                  await Get.offAllNamed(getInitialRoute());
                 },
                 child: Text('Restart MisakaNessenger'.tr),
               ),
