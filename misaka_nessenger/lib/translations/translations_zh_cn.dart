@@ -16,4 +16,6 @@ const Map<String, String> translationZhCN = <String, String>{
   'Invalid remote port': '无效端口号',
   'Remote port should be in 0~65535': '端口号应该在0~65535之间',
   'Local IP:': '本机IP：',
+  'Server failed to start, try restart app': 'Server 启动失败，重新启动app试试',
+  'Restart MisakaNessenger': '重新启动 MisakaNessenger',
 };

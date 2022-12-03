@@ -16,4 +16,7 @@ const Map<String, String> translationEnUS = <String, String>{
   'Invalid remote port': 'Invalid remote port',
   'Remote port should be in 0~65535': 'Remote port should be in 0~65535',
   'Local IP:': 'Local IP:',
+  'Server failed to start, try restart app':
+      'Server failed to start, try restart app',
+  'Restart MisakaNessenger': 'Restart MisakaNessenger',
 };

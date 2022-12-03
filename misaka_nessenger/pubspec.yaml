@@ -35,8 +35,11 @@ dependencies:
   flex_color_scheme: ^6.0.1
   flutter:
     sdk: flutter
+  flutter_phoenix: ^1.1.0
   font_awesome_flutter: ^10.2.1
   get: ^4.6.5
+  # json_annotation: ^4.7.0
+  # json_serializable: ^6.5.4
   network_info_plus: ^3.0.1
   path: ^1.8.2
   path_provider: ^2.0.11

@@ -13,6 +13,7 @@ class PayloadWorker {
     this.remoteHost = '',
     this.remotePort = -1,
     this.remoteRoutePath = '/upload',
+    this.headerKey = 'file',
   }) {
     fileName = path.basename(filePath);
   }
@@ -47,6 +48,9 @@ class PayloadWorker {
   /// * not (not finished or finished with error).
   bool succeed = false;
 
+  /// Header key used in upload post request.
+  String headerKey;
+
   /// Stream controller of [finishedSizeStream].
   final _finishedSizeSC = StreamController<int>.broadcast(sync: true);
 
@@ -62,7 +66,7 @@ class PayloadWorker {
   Future<bool> sendFile() async {
     final dio = Dio();
     final data = FormData.fromMap({
-      'file': await MultipartFile.fromFile(filePath, filename: fileName),
+      headerKey: await MultipartFile.fromFile(filePath, filename: fileName),
     });
     late final Response resp;
     try {
