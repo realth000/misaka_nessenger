@@ -21,6 +21,15 @@ class ServerBridgeService extends GetxService {
   /// Get server status.
   RunningStatus get serverStatus => _serverStatus;
 
+  /// Close MisakaNessenger server.
+  static Future<void> closeServer() async {
+    try {
+      await Dio().get('http://localhost:10032/exit');
+    } catch (e) {
+      print('Failed to close server: $e');
+    }
+  }
+
   /// Init before app start.
   Future<ServerBridgeService> init() async {
     await _fetchServerStatus();

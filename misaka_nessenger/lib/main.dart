@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'common/init.dart';
 import 'routes/misaka_pages.dart';
 import 'services/locale_service.dart';
+import 'services/server_bridge_service.dart';
 import 'themes/app_themes.dart';
 import 'translations/translations.dart';
 
@@ -52,5 +53,8 @@ class MisakaApp extends StatelessWidget {
         translations: MisakaTranslations(),
         locale: Get.find<LocaleService>().getLocale(),
         fallbackLocale: LocaleService.fallbackLocale,
+        onDispose: () async {
+          await ServerBridgeService.closeServer();
+        },
       );
 }
