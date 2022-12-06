@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../common/payload_type.dart';
+import '../../services/payload_service.dart';
 import 'payload_item_controller.dart';
 
 /// Payload item widget in UI.
@@ -31,6 +32,12 @@ class PayloadItemWidget extends StatelessWidget {
           title: Text(_controller.fileName),
           subtitle: LinearProgressIndicator(
             value: _controller.finishedSize.value / _controller.fileSize.value,
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.cancel),
+            onPressed: () {
+              Get.find<PayloadService>().removeWorker(_controller.filePath);
+            },
           ),
         ),
       );

@@ -39,6 +39,9 @@ class PayloadWorker {
   /// Size of Bytes that already finished.
   int finishedSize = 0;
 
+  /// Flag for task started or not.
+  bool started = false;
+
   /// Flag for finished or not.
   bool finished = false;
 
@@ -64,6 +67,7 @@ class PayloadWorker {
 
   /// Start send file.
   Future<bool> sendFile() async {
+    started = true;
     final dio = Dio();
     final data = FormData.fromMap({
       headerKey: await MultipartFile.fromFile(filePath, filename: fileName),

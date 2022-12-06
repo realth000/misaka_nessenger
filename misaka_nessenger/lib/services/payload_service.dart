@@ -92,4 +92,18 @@ class PayloadService extends GetxService {
     final worker = PayloadWorker(filePath: filePath);
     workerPool[filePath] = worker;
   }
+
+  /// Remove worker with file path [filePath] from [workerPool]
+  void removeWorker(String filePath) {
+    final worker = workerPool[filePath];
+    if (worker == null) {
+      return;
+    }
+    if (worker.started) {
+      Get.rawSnackbar(title: 'Failed to delete', message: 'Already started');
+      return;
+    }
+    workerPool.remove(filePath);
+    stagedPayloadPathList.remove(filePath);
+  }
 }
