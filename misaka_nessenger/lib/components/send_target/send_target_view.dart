@@ -58,72 +58,76 @@ class SendTargetWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  controller: _remoteIPController,
-                  decoration: InputDecoration(
-                    labelText: 'Remote IP'.tr,
-                    hintText: 'xxx.xxx.xxx.xxx'.tr,
+  Widget build(BuildContext context) => SizedBox(
+        width: 500,
+        height: 500,
+        child: Column(
+          children: <Widget>[
+            Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: _remoteIPController,
+                    decoration: InputDecoration(
+                      labelText: 'Remote IP'.tr,
+                      hintText: 'xxx.xxx.xxx.xxx'.tr,
+                    ),
+                    validator: (v) {
+                      if (v!.trim().isEmpty) {
+                        return 'Remote IP can not be empty'.tr;
+                      }
+                      if (!v.isIPv4 && v != 'localhost') {
+                        return 'Invalid IP'.tr;
+                      }
+                      return null;
+                    },
                   ),
-                  validator: (v) {
-                    if (v!.trim().isEmpty) {
-                      return 'Remote IP can not be empty'.tr;
-                    }
-                    if (!v.isIPv4 && v != 'localhost') {
-                      return 'Invalid IP'.tr;
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  width: 10,
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: _remotePortController,
-                  decoration: InputDecoration(
-                    labelText: 'Remote Port'.tr,
-                    hintText: '0~65535'.tr,
+                  const SizedBox(
+                    width: 10,
+                    height: 10,
                   ),
-                  validator: (v) {
-                    if (v == null) {
-                      return 'Remote port can not be empty'.tr;
-                    }
-                    final intValue = int.tryParse(v);
-                    if (intValue == null) {
-                      return 'Invalid remote port'.tr;
-                    }
-                    if (intValue < 0 || intValue > 65535) {
-                      return 'Remote port should be in 0~65535'.tr;
-                    }
-                    return null;
-                  },
-                ),
-              ],
+                  TextFormField(
+                    controller: _remotePortController,
+                    decoration: InputDecoration(
+                      labelText: 'Remote Port'.tr,
+                      hintText: '0~65535'.tr,
+                    ),
+                    validator: (v) {
+                      if (v == null) {
+                        return 'Remote port can not be empty'.tr;
+                      }
+                      final intValue = int.tryParse(v);
+                      if (intValue == null) {
+                        return 'Invalid remote port'.tr;
+                      }
+                      if (intValue < 0 || intValue > 65535) {
+                        return 'Remote port should be in 0~65535'.tr;
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(minHeight: 50),
-                    child: ElevatedButton(
-                      onPressed: _checkAndSend,
-                      child: Text('Send'.tr),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 50),
+                      child: ElevatedButton(
+                        onPressed: _checkAndSend,
+                        child: Text('Send'.tr),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
 }

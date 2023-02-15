@@ -1,5 +1,7 @@
 # misaka_nessenger
 
+**Use [localsend](https://github.com/localsend/localsend) instead.**
+
 Local Area Network messenger.
 
 ## Getting Started

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../components/navigation_bar/navigation_bar_view.dart';
-import '../../components/send_payload/add_payload_button_widget.dart';
+import '../../components/send_target/send_target_view.dart';
 import '../../pages/scaffold/scaffold_pages_list.dart';
 import '../window_bar_buttons.dart';
 import 'scaffold_bottom_widget.dart';
@@ -22,7 +22,11 @@ class DesktopScaffold extends StatelessWidget {
   Widget? _buildFloatingActionButton() {
     switch (index) {
       case 0:
-        return const AddPayloadButton();
+        return FloatingActionButton(
+          onPressed: () async => Get.dialog(SendTargetWidget()),
+          child: const Icon(Icons.add),
+        );
+      // return const AddPayloadButton();
       default:
         return null;
     }
@@ -54,8 +58,8 @@ class DesktopScaffold extends StatelessWidget {
           ],
         ),
         floatingActionButton: _buildFloatingActionButton(),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniCenterFloat,
+        // floatingActionButtonLocation:
+        //     FloatingActionButtonLocation.miniCenterFloat,
         bottomNavigationBar: const DesktopScaffoldBottomWidget(),
       );
 }

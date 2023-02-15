@@ -99,7 +99,7 @@ class PayloadService extends GetxService {
     if (worker == null) {
       return;
     }
-    if (worker.started) {
+    if (worker.started && !worker.finished) {
       Get.rawSnackbar(title: 'Failed to delete', message: 'Already started');
       return;
     }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as g;
 import 'package:path/path.dart' as path;
 
 /// Worker class to handle payload tasks.
@@ -89,7 +90,7 @@ class PayloadWorker {
         return false;
       }
     } catch (e) {
-      print('AAAA !!!!!!!!error: $e');
+      g.Get.rawSnackbar(title: 'Failed to send files', message: e.toString());
       print(
           'Error sending file $filePath, status=${resp.statusCode}, message = ${resp.statusMessage}');
     }
